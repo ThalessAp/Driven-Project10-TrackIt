@@ -1,4 +1,4 @@
-import { AiFillPlusSquare } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import styled from "styled-components";
 import Header from "./Header";
 import Habit from "./Habit";
@@ -9,10 +9,10 @@ import { GetHabits } from "./services/axios";
 
 export default function Habits(Token) {
 	const [habits, setHabits] = useState([]);
-  const [newHabit, setNewHabit] = useState({
-    name: "",
-    days: []
-  });
+	const [newHabit, setNewHabit] = useState({
+		name: "",
+		days: [],
+	});
 	const token = {
 		config: {
 			headers: {
@@ -31,11 +31,14 @@ export default function Habits(Token) {
 			});
 	});
 
-  function CreateHabit() {
-    
+	function CreateHabit() {
 		return (
 			<>
-        <CreateNewHabit newHabit={newHabit } setNewHabit={setNewHabit} token={token} />
+				<CreateNewHabit
+					newHabit={newHabit}
+					setNewHabit={setNewHabit}
+					token={token}
+				/>
 			</>
 		);
 	}
@@ -44,16 +47,20 @@ export default function Habits(Token) {
 		<>
 			<Header />
 			<Subtitle className="subtitle">
-				<span>
+				<>
 					<h3>Meus hábitos</h3>
-
-					<div className="add-habit" onClick={CreateHabit}>
-						<AiFillPlusSquare />
-					</div>
-				</span>
+					<Icon className="add-habit" onClick={CreateHabit}>
+						<AiOutlinePlus />
+					</Icon>
+				</>
 			</Subtitle>
-			<div className="main">
+			<Main className="main">
 				{habits ? (
+					<Desc>
+						Você não tem nenhum hábito cadastrado ainda.Adicione um hábito para
+						começar a trackear!
+					</Desc>
+				) : (
 					habits.map((habit) => {
 						return (
 							<>
@@ -61,38 +68,49 @@ export default function Habits(Token) {
 							</>
 						);
 					})
-				) : (
-					<h4>
-						Você não tem nenhum hábito cadastrado ainda.Adicione um hábito para
-						começar a trackear!
-					</h4>
 				)}
-			</div>
+			</Main>
 
 			<Footer />
 		</>
 	);
 }
 
-const Subtitle = styled.div`
+const Subtitle = styled.span`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 25px;
+	margin: 0 20px;
 
-	span {
-		h3 {
-			font-family: "Lexend Deca";
-			font-style: normal;
-			font-weight: 400;
-			font-size: 23px;
-			color: #126ba5;
-		}
-		div {
-			width: 40px;
-			height: 35px;
-			background: #52b6ff;
-			border-radius: 5px;
-		}
+	h3 {
+		font-family: "Lexend Deca";
+		font-style: normal;
+		font-weight: 400;
+		font-size: 23px;
+		color: #126ba5;
 	}
+`;
+const Icon = styled.div`
+	width: 40px;
+	height: 35px;
+	background: #52b6ff;
+	border-radius: 5px;
+
+	svg {
+		width: 100%;
+		height: 100%;
+		color: #fff;
+	}
+`;
+const Desc = styled.h4`
+	font-family: "Lexend Deca";
+	font-style: normal;
+	font-weight: 400;
+	font-size: 17.976px;
+	line-height: 22px;
+
+	color: #666666;
+`;
+const Main = styled.div`
+	height: calc(100%-70px);
 `;

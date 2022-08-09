@@ -1,23 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { SingIn } from "./services/axios";
 import Logo from "./assets/img/Logo.svg";
 
-export default function Login() {
-	
+export default function Login({ setToken }) {
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
 	});
 
-	function Logar() {
-		useEffect(() => {
-			SingIn(user)
-				.then((response) => {
-				console.log(response);
+	function Logar(event) {
+		event.preventDefault();
+		console.log(user);
+		SingIn(user)
+			.then((response) => {
+				console.log(response.data);
+				setToken(response.data.token);
+				Navigate("/habitos");
+			})
+			.catch((error) => {
+				Navigate("/cadastro");
 			});
-		});
+	}
+	function Navigate(target) {
+		useNavigate({ target }, { replace: true });
 	}
 
 	return (
@@ -29,7 +36,7 @@ export default function Login() {
 			</Styledlogo>
 
 			<StyledForm>
-				<form onSubmit={Logar()}>
+				<form onSubmit={Logar}>
 					<input
 						type="text"
 						placeholder="  email"

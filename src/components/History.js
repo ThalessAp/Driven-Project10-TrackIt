@@ -34,7 +34,8 @@ export default function History({ Token }) {
 		<>
 			<Header />
 			<HistoryFeed className="history">
-				<h2>Historico</h2>
+				<h2>Histórico</h2>
+
 				{history.length > 0 ? (
 					<ul>
 						{history.map((habit) => {
@@ -74,7 +75,7 @@ export default function History({ Token }) {
 						})}
 					</ul>
 				) : (
-					"Em breve você poderá ver o histórico dos seus hábitos aqui!"
+					<h4>Em breve você poderá ver o histórico dos seus hábitos aqui!</h4>
 				)}
 			</HistoryFeed>
 			<Footer />
@@ -82,17 +83,25 @@ export default function History({ Token }) {
 	);
 }
 const HistoryFeed = styled.div`
+	height: calc(100%-70px);
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+
 	justify-content: center;
 	margin-top: 30px;
+
+	padding: 0 20px;
+	font-family: "Lexend Deca";
+	font-style: normal;
+	font-weight: 400;
 	h2 {
-		font-family: "Lexend Deca";
-		font-style: normal;
-		font-weight: 400;
 		font-size: 23px;
 		color: #126ba5;
+	}
+	h4{
+		font-size: 18px;
+		color: #666;
+
 	}
 `;
 const Habit = styled.div`

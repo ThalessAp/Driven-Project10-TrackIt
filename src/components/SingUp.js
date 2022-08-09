@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Audio } from "react-loader-spinner";
@@ -8,125 +8,129 @@ import Logo from "./assets/img/Logo.svg";
 export default function Cadatrar() {
 	const [user, setUser] = useState({
 		email: "",
-		password: "",
 		name: "",
-		imgProfile: "",
+		image: "",
+		password: "",
 	});
 
-	function Cadastrar() {
-		useEffect(() => {
-			SignUp(user)
-        .then((response) => {
-          
-					console.log(response);
-					return (
-						<>
-							<Styledlogo>
-								<div className="logo">
-									<img src={Logo} alt="Logo" />
-								</div>
-							</Styledlogo>
+	function Cadastrar(event) {
+		event.preventDefault();
+		console.log(user);
 
-							<StyledForm>
-								<form onSubmit={Cadastrar()}>
-									<input
-										type="text"
-										placeholder="  email"
-										onChange={(e) =>
-											setUser({ ...user, email: e.target.value })
-										}
-										disabled
-									/>
-									<input
-										type="password"
-										placeholder="  senha"
-										onChange={(e) =>
-											setUser({ ...user, password: e.target.value })
-										}
-										disabled
-									/>
-									<input
-										type="text"
-										placeholder="  nome"
-										onChange={(e) => setUser({ ...user, name: e.target.value })}
-										disabled
-									/>
-									<input
-										type="text"
-										placeholder="  foto"
-										onChange={(e) =>
-											setUser({ ...user, imgProfile: e.target.value })
-										}
-										disabled
-									/>
-									<button type="submit" disabled>
-										Cadastrar
-									</button>
-								</form>
-							</StyledForm>
-							<StyledLink>
-								<Audio
-									height="80"
-									width="80"
-									radius="9"
-									color="green"
-									ariaLabel="three-dots-loading"
-									wrapperStyle
-									wrapperClass
+		SignUp(user)
+			.then((response) => {
+				console.log(response);
+				return (
+					<>
+						<Styledlogo>
+							<div className="logo">
+								<img src={Logo} alt="Logo" />
+							</div>
+						</Styledlogo>
+
+						<StyledForm>
+							<form onSubmit={Cadastrar()}>
+								<input
+									type="text"
+									placeholder="  email"
+									onChange={(e) =>
+										setUser({ ...user, [e.target.email]: e.target.value })
+									}
+									disabled
 								/>
-								<Link to="/">Já tem uma conta? Faça login!</Link>
-							</StyledLink>
-						</>
-					);
-				})
-				.catch((error) => {
-					console.log(error);
-					return (
-						<>
-							<Styledlogo>
-								<div className="logo">
-									<img src={Logo} alt="Logo" />
-								</div>
-							</Styledlogo>
+								<input
+									type="password"
+									placeholder="  senha"
+									onChange={(e) =>
+										setUser({ ...user, [e.target.password]: e.target.value })
+									}
+									disabled
+								/>
+								<input
+									type="text"
+									placeholder="  nome"
+									onChange={(e) =>
+										setUser({ ...user, [e.target.name]: e.target.value })
+									}
+									disabled
+								/>
+								<input
+									type="text"
+									placeholder="  foto"
+									onChange={(e) =>
+										setUser({ ...user, [e.target.image]: e.target.value })
+									}
+									disabled
+								/>
+								<button type="submit" disabled>
+									Cadastrar
+								</button>
+							</form>
+						</StyledForm>
+						<StyledLink>
+							<Audio
+								height="80"
+								width="80"
+								radius="9"
+								color="green"
+								ariaLabel="three-dots-loading"
+								wrapperStyle
+								wrapperClass
+							/>
+							<Link to="/">Já tem uma conta? Faça login!</Link>
+						</StyledLink>
+					</>
+				);
+			})
+			.catch((error) => {
+				console.log(error);
+				return (
+					<>
+						<Styledlogo>
+							<div className="logo">
+								<img src={Logo} alt="Logo" />
+							</div>
+						</Styledlogo>
 
-							<StyledForm>
-								<form onSubmit={Cadastrar()}>
-									<input
-										type="text"
-										placeholder="  email"
-										onChange={(e) =>
-											setUser({ ...user, email: e.target.value })
-										}
-									/>
-									<input
-										type="password"
-										placeholder="  senha"
-										onChange={(e) =>
-											setUser({ ...user, password: e.target.value })
-										}
-									/>
-									<input
-										type="text"
-										placeholder="  nome"
-										onChange={(e) => setUser({ ...user, name: e.target.value })}
-									/>
-									<input
-										type="text"
-										placeholder="  foto"
-										onChange={(e) =>
-											setUser({ ...user, imgProfile: e.target.value })
-										}
-									/>
-									<button type="submit">Cadastrar</button>
-								</form>
-							</StyledForm>
-							<StyledLink>
-								<Link to="/">Já tem uma conta? Faça login!</Link>
-							</StyledLink>
-						</>
-					);
-				});
-		});
+						<StyledForm>
+							<form onSubmit={Cadastrar()}>
+								<input
+									type="text"
+									placeholder="  email"
+									onChange={(e) =>
+										setUser({ ...user, email: e.target.value })
+									}
+								/>
+								<input
+									type="password"
+									placeholder="  senha"
+									onChange={(e) =>
+										setUser({ ...user, password: e.target.value })
+									}
+								/>
+								<input
+									type="text"
+									placeholder="  nome"
+									onChange={(e) =>
+										setUser({ ...user, name: e.target.value })
+									}
+								/>
+								<input
+									type="text"
+									placeholder="  foto"
+									onChange={(e) =>
+										setUser({ ...user, image: e.target.value })
+									}
+								/>
+								<button type="submit">Cadastrar</button>
+							</form>
+						</StyledForm>
+						<StyledLink>
+							<Link to="/">Já tem uma conta? Faça login!</Link>
+						</StyledLink>
+					</>
+				);
+			});
 	}
 
 	return (
@@ -138,7 +142,7 @@ export default function Cadatrar() {
 			</Styledlogo>
 
 			<StyledForm>
-				<form onSubmit={Cadastrar()}>
+				<form onSubmit={Cadastrar}>
 					<input
 						type="text"
 						placeholder="  email"
@@ -157,7 +161,7 @@ export default function Cadatrar() {
 					<input
 						type="text"
 						placeholder="  foto"
-						onChange={(e) => setUser({ ...user, imgProfile: e.target.value })}
+						onChange={(e) => setUser({ ...user, image: e.target.value })}
 					/>
 					<button type="submit">Cadastrar</button>
 				</form>

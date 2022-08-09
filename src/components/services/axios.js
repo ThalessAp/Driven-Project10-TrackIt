@@ -1,6 +1,8 @@
 import axios from "axios";
 
+
 const Api = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit";
+
 
 
 function SignUp(user) {
@@ -49,5 +51,6 @@ export {
 	TodayHabit,
 	CheckHabit,
 	UncheckHabit,
-	HistoryHabit
+	HistoryHabit,
+
 };

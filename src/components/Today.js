@@ -5,8 +5,20 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { CheckHabit, TodayHabit, UncheckHabit } from "./services/axios";
 
+function calcDone(habits) {
+	let done,
+		length = 0;
+	habits.map((habit) => {
+		if (habit.done) {
+			done++;
+		}
+		length++;
+		return `${(done / length) * 100}%`;
+	});
+}
 export default function Today({ Token }) {
 	const [habits, setHabits] = useState([]);
+	const [done, setDone] = useState([]);
 
 	const token = {
 		config: {
@@ -18,8 +30,10 @@ export default function Today({ Token }) {
 	useEffect(() => {
 		TodayHabit(token).then((response) => {
 			setHabits(response.data);
+			calcDone(response.data);
 		});
 	});
+	
 
 	function ToggleDone(index, id) {
 		useEffect(() => {
@@ -157,3 +171,5 @@ const Habit = styled.div`
 		border-radius: 5px;
 	}
 `;
+
+export {calcDone};
