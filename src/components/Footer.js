@@ -57,7 +57,7 @@ const StyledFooter = styled.div`
 	margin-top: 50px;
 	width: 100%;
 	max-height: 70px;
-	background: lightblue;
+	background: #fff;
 	a {
 		text-decoration: none;
 	}
